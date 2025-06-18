@@ -4,7 +4,7 @@ Markdown
 
 Este es un proyecto full-stack para controlar dispositivos de un hogar inteligente. La arquitectura está completamente dockerizada, separando las responsabilidades del backend y el frontend para un desarrollo y despliegue más limpios.
 
-![Captura de Pantalla del Dashboard](https://i.imgur.com/gY9T5xT.png)
+![Captura de Pantalla del Dashboard]((https://github.com/dimacio/TP-DAW/blob/main/image.png)) 
 
 ## 🌟 Características
 
