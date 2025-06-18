@@ -1,4 +1,4 @@
-Markdown
+
 
 # Proyecto Full-Stack: Smart Home Dashboard
 
@@ -100,13 +100,15 @@ Eliminar un dispositivo
 Método: DELETE
 Endpoint: /devices/:id (ej: /devices/3)
 Respuesta Exitosa (200): Mensaje de confirmación.
-🎨 Funcionalidades del Frontend
+
+```
+## 🎨Funcionalidades del Frontend
 La interfaz de usuario, accesible en http://localhost:8080, permite realizar todas las operaciones CRUD de forma visual e intuitiva:
 
-Listado Dinámico: Al cargar, muestra todos los dispositivos existentes con su ícono, nombre, ubicación y controles.
-Control de Estado: Un interruptor (On/Off) permite cambiar el estado de cada dispositivo en tiempo real.
-Control de Nivel: Un slider permite ajustar el nivel de intensidad (0-100%).
-Creación y Edición: Un formulario modal permite crear nuevos dispositivos o editar los existentes (nombre, ubicación y tipo).
-Eliminación Segura: Un modal de confirmación previene el borrado accidental de dispositivos.
-Interfaz Responsiva: El diseño se adapta a diferentes tamaños de pantalla, desde dispositivos móviles hasta monitores de escritorio.
-<!-- end list -->
+* **Listado Dinámico:** Al cargar, muestra todos los dispositivos existentes con su ícono, nombre, ubicación y controles.
+* **Control de Estado:** Un interruptor (On/Off) permite cambiar el estado de cada dispositivo en tiempo real.
+* **Control de Nivel:** Un slider permite ajustar el nivel de intensidad (0-100%).
+* **Creación y Edición:** Un formulario modal permite crear nuevos dispositivos o editar los existentes (nombre, ubicación y tipo).
+* **Eliminación Segura:** Un modal de confirmación previene el borrado accidental de dispositivos.
+* **Interfaz Responsiva:** El diseño se adapta a diferentes tamaños de pantalla, desde dispositivos móviles hasta monitores de escritorio.
+
