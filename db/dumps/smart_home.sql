@@ -15,6 +15,7 @@ CREATE TABLE `Devices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_id` varchar(128) NOT NULL UNIQUE,
   `ubicacion` varchar(128) NOT NULL,
+  `tipo` varchar(50) NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT 0,
   `nivel` int(3) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
@@ -24,9 +25,9 @@ CREATE TABLE `Devices` (
 -- Datos de ejemplo para `Devices`
 --
 
-INSERT INTO `Devices` (`nombre_id`, `ubicacion`, `estado`, `nivel`) VALUES
-('lampara-living-1', 'Living Room', 1, 80),
-('ventilador-techo-dormitorio', 'Dormitorio Principal', 1, 50),
-('calefactor-bano', 'Baño', 0, 100);
+INSERT INTO `Devices` (`nombre_id`, `ubicacion`, `tipo`, `estado`, `nivel`) VALUES
+('lampara-living-1', 'Living Room', 'lampara', 1, 80),
+('ventilador-techo-dormitorio', 'Dormitorio Principal', 'ventilador', 1, 50),
+('calefactor-bano', 'Baño', 'calefactor', 0, 100);
 
 COMMIT;

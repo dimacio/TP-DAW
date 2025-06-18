@@ -1,110 +1,112 @@
-Proyecto Fullstack: Smart Home
+Markdown
 
+# Proyecto Full-Stack: Smart Home Dashboard
 
+Este es un proyecto full-stack para controlar dispositivos de un hogar inteligente. La arquitectura está completamente dockerizada, separando las responsabilidades del backend y el frontend para un desarrollo y despliegue más limpios.
 
-Este es un proyecto fullstack para controlar dispositivos de un hogar inteligente. La arquitectura está montada sobre Docker y se divide en dos grandes partes:
+![Captura de Pantalla del Dashboard](https://i.imgur.com/gY9T5xT.png)
 
-    Backend (¡Terminado! 🎉): Una API REST hecha con Node.js y Express, que se conecta a una base de datos MySQL para gestionar los dispositivos.
+## 🌟 Características
 
-    Frontend (Próximo paso 🗓️): Una interfaz web para interactuar con la API y controlar los dispositivos desde el navegador.
+* **Backend:** Una API REST robusta construida con Node.js y Express, conectada a una base de datos MySQL para la gestión persistente de los dispositivos.
+* **Frontend:** Una Single Page Application (SPA) moderna e interactiva, construida con TypeScript y MaterializeCSS, que permite el control en tiempo real de los dispositivos.
+* **Contenerización:** Todo el entorno (backend, frontend y base de datos) está orquestado con Docker y Docker Compose para una configuración y puesta en marcha sencillas con un solo comando.
+* **Desarrollo Moderno:** El frontend utiliza un `Dockerfile` multi-etapa para crear una imagen de producción ligera y optimizada, compilando el código TypeScript de forma automática.
 
-🚀 Puesta en Marcha del Backend
+## 🛠️ Stack Tecnológico
 
-Para levantar el backend y la base de datos, solo tenés que correr este comando en la raíz del proyecto:
+| Área          | Tecnología                                      |
+|---------------|-------------------------------------------------|
+| **Backend** | Node.js, Express.js, MySQL                      |
+| **Frontend** | HTML5, CSS3, TypeScript, MaterializeCSS, Nginx  |
+| **Entorno** | Docker, Docker Compose                          |
 
-sudo docker compose up --build
+## 🚀 Puesta en Marcha del Proyecto
 
-Una vez que arranque, la API va a estar escuchando en http://localhost:8000.
-⚙️ Uso de la API (Backend)
+Para levantar todo el stack (backend, frontend y base de datos), solo necesitas tener Docker y Docker Compose instalados en tu sistema.
 
-Ya podés probar la API con curl desde tu terminal para asegurarte de que todo funciona como se espera.
+1.  Clona o descarga este repositorio en tu máquina local.
+2.  Abre una terminal en la carpeta raíz del proyecto.
+3.  Ejecuta el siguiente comando:
+
+```bash
+docker-compose up --build
+Una vez que todos los contenedores se hayan iniciado, podrás acceder a:
+
+Frontend (Dashboard): http://localhost:8080
+API (Backend): http://localhost:8000
+📁 Estructura del Proyecto
+.
+├── db/
+│   └── dumps/
+│       └── smart_home.sql      # Script de inicialización de la DB
+├── src/
+│   ├── backend/
+│   │   ├── models/             # Lógica de datos de la API
+│   │   ├── routes/             # Definición de endpoints de la API
+│   │   ├── index.js            # Punto de entrada de la API
+│   │   ├── package.json        # Dependencias del backend
+│   │   └── Dockerfile          # Instrucciones para construir el backend
+│   └── frontend/
+│       ├── dist/               # (Generado automáticamente) JS compilado
+│       ├── index.html          # Estructura de la SPA
+│       ├── style.css           # Estilos personalizados
+│       ├── main.ts             # Lógica del frontend en TypeScript
+│       ├── package.json        # Dependencias y scripts de compilación
+│       ├── tsconfig.json       # Configuración del compilador de TS
+│       ├── nginx.conf          # Configuración de Nginx (Reverse Proxy)
+│       └── Dockerfile          # Instrucciones para construir el frontend
+├── .dockerignore
+├── docker-compose.yml          # Orquestación de todos los servicios
+└── README.md                   # Este archivo
+⚙️ API Endpoints (Backend)
+La API REST está disponible en http://localhost:8000.
+
 Listar todos los dispositivos
+Método: GET
+Endpoint: /devices/
+Respuesta Exitosa (200):
+JSON
 
-    Método: GET
+[
+  { "id": 1, "nombre_id": "lampara-living-1", "ubicacion": "Living Room", "tipo": "lampara", "estado": 1, "nivel": 80 }
+]
+Listar tipos de dispositivos únicos
+Método: GET
+Endpoint: /devices/types/
+Respuesta Exitosa (200):
+JSON
 
-    Endpoint: /devices
-
-    Comando:
-
-    curl http://localhost:8000/devices
-
+["calefactor", "lampara", "ventilador"]
 Crear un dispositivo
+Método: POST
+Endpoint: /devices/
+Body (JSON):
+JSON
 
-    Método: POST
-
-    Endpoint: /devices
-
-    Comando:
-
-    curl -X POST -H "Content-Type: application/json" -d '{
-      "nombre_id": "luz-cocina",
-      "ubicacion": "Cocina",
-      "estado": 0,
-      "nivel": 100
-    }' http://localhost:8000/devices
-
+{
+  "nombre_id": "luz-cocina",
+  "ubicacion": "Cocina",
+  "tipo": "lampara",
+  "estado": 0,
+  "nivel": 100
+}
+Respuesta Exitosa (201): El objeto del dispositivo recién creado con su id.
 Actualizar un dispositivo
-
-    Método: PUT
-
-    Endpoint: /devices/:id
-
-    Comando (para el ID 2):
-
-    curl -X PUT -H "Content-Type: application/json" -d '{
-      "nombre_id": "ventilador-potente",
-      "ubicacion": "Dormitorio",
-      "estado": 1,
-      "nivel": 90
-    }' http://localhost:8000/devices/2
-
+Método: PUT
+Endpoint: /devices/:id (ej: /devices/2)
+Body (JSON): El objeto completo del dispositivo con los campos a modificar.
 Eliminar un dispositivo
+Método: DELETE
+Endpoint: /devices/:id (ej: /devices/3)
+Respuesta Exitosa (200): Mensaje de confirmación.
+🎨 Funcionalidades del Frontend
+La interfaz de usuario, accesible en http://localhost:8080, permite realizar todas las operaciones CRUD de forma visual e intuitiva:
 
-    Método: DELETE
-
-    Endpoint: /devices/:id
-
-    Comando (para el ID 3):
-
-    curl -X DELETE http://localhost:8000/devices/3
-
-🎨 Plan y Requisitos para el Frontend
-
-Ahora que el backend está firme, el próximo objetivo es construir la interfaz de usuario.
-Tecnologías a Utilizar
-
-    Lenguaje: TypeScript, para tener un código más robusto, tipado y fácil de mantener.
-
-    Estilos: Materialize CSS, para lograr una interfaz moderna, limpia y responsive, consistente con el diseño del proyecto de referencia.
-
-Requisitos Funcionales del Frontend
-
-La interfaz web debe cumplir con los siguientes requisitos:
-
-    Listado Dinámico de Dispositivos:
-
-        Al cargar la página (o al presionar un botón de "Actualizar"), se debe hacer una petición GET a /devices.
-
-        La respuesta JSON se debe usar para dibujar dinámicamente cada dispositivo en la pantalla, mostrando su nombre, ubicación y estado.
-
-        Se deben usar íconos de Materialize para representar visualmente cada tipo de dispositivo (ej: lightbulb para lámparas, air para ventiladores).
-
-    Control de Estado (On/Off):
-
-        Cada dispositivo en la lista debe tener un interruptor (switch) de Materialize que refleje su estado actual (on/off).
-
-        Al hacer clic en el interruptor, se debe enviar una petición PUT al endpoint /devices/:id correspondiente, actualizando el campo estado.
-
-        La interfaz debe reflejar el cambio visualmente de forma inmediata (por ejemplo, cambiando el color del ícono).
-
-    Control de Nivel (0-100%):
-
-        (Opcional, como mejora) Se podría añadir un slider de Materialize para controlar el nivel de los dispositivos que lo soporten (lámparas dimeables, velocidad del ventilador, etc.).
-
-        Al mover el slider, se enviaría una petición PUT para actualizar el campo nivel del dispositivo.
-
-    Feedback al Usuario:
-
-        Mostrar un indicador de carga (preloader de Materialize) mientras se obtienen los datos de la API.
-
-        Mostrar notificaciones (tipo "Toast" de Materialize) para confirmar acciones como "Dispositivo actualizado" o para informar errores si una petición a la API falla.
+Listado Dinámico: Al cargar, muestra todos los dispositivos existentes con su ícono, nombre, ubicación y controles.
+Control de Estado: Un interruptor (On/Off) permite cambiar el estado de cada dispositivo en tiempo real.
+Control de Nivel: Un slider permite ajustar el nivel de intensidad (0-100%).
+Creación y Edición: Un formulario modal permite crear nuevos dispositivos o editar los existentes (nombre, ubicación y tipo).
+Eliminación Segura: Un modal de confirmación previene el borrado accidental de dispositivos.
+Interfaz Responsiva: El diseño se adapta a diferentes tamaños de pantalla, desde dispositivos móviles hasta monitores de escritorio.
+<!-- end list -->

@@ -1,6 +1,5 @@
-
 services:
-  # Servicio de la Base de Datos con Healthcheck
+  # Servicio de la Base de Datos (sin cambios)
   db:
     image: mysql:5.7
     hostname: db
@@ -13,27 +12,35 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - app-network
-    # evita condiciones de carrera entre la API y la base de datos
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "root", "-puserpass"]
       interval: 10s
       timeout: 5s
       retries: 5
-    # -------------------------
 
-  # Servicio de la API que espera al Healthcheck
+  # Servicio de la API (con Dockerfile por defecto)
   api:
-    build: .
+    build:
+      context: ./src/backend      # Busca un 'Dockerfile' por defecto en esta carpeta
     ports:
       - "8000:3000"
     volumes:
       - ./src/backend:/usr/src/app
       - /usr/src/app/node_modules
-    
     depends_on:
       db:
-        condition: service_healthy # <-- Espera a que el healthcheck sea exitoso
-    # ----------------------------
+        condition: service_healthy
+    networks:
+      - app-network
+
+  # Servicio de Frontend (con Dockerfile por defecto)
+  frontend:
+    build:
+      context: ./src/frontend     # Busca un 'Dockerfile' por defecto en esta carpeta
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
     networks:
       - app-network
 

@@ -3,7 +3,9 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
+
 const deviceRoutes = require('./routes/devices');
+const dbConnection = require('./mysql-connector'); 
 
 // Middlewares
 app.use(express.json());

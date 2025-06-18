@@ -4,6 +4,21 @@ const express = require('express');
 const router = express.Router();
 const Device = require('../models/device');
 
+// --- NUEVO ENDPOINT ---
+// GET /devices/types - Obtener todos los tipos de dispositivos únicos
+router.get('/types', async (req, res) => {
+    console.log("-> Se ha recibido una petición GET en /devices/types");
+    try {
+        const types = await Device.getUniqueTypes();
+        console.log("<- Respondiendo a GET /devices/types con los datos.");
+        res.status(200).json(types);
+    } catch (err) {
+        console.error("!! ERROR en GET /devices/types:", err);
+        res.status(500).json({ error: err.message });
+    }
+});
+// --------------------
+
 // GET /devices - Obtener todos los dispositivos
 router.get('/', async (req, res) => {
     console.log("-> Se ha recibido una petición GET en /devices");
@@ -39,6 +54,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log("-> Se ha recibido una petición POST en /devices con el body:", req.body);
     try {
+        // Aseguramos que el campo tipo se maneje correctamente
         const newDevice = await Device.create(req.body);
         console.log("<- Respondiendo a POST /devices con el nuevo dispositivo creado.");
         res.status(201).json(newDevice);
@@ -52,10 +68,13 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     console.log(`-> Se ha recibido una petición PUT en /devices/${req.params.id} con el body:`, req.body);
     try {
+        // Aseguramos que el campo tipo se maneje correctamente
         const result = await Device.update(req.params.id, req.body);
         if (result.affectedRows > 0) {
             console.log(`<- Respondiendo a PUT /devices/${req.params.id} con 200 OK.`);
-            res.status(200).json({ message: 'Dispositivo actualizado' });
+            // Devolvemos el dispositivo actualizado para mantener la SPA sincronizada
+            const updatedDevice = await Device.getById(req.params.id);
+            res.status(200).json(updatedDevice);
         } else {
             console.log(`<- Respondiendo a PUT /devices/${req.params.id} con 404.`);
             res.status(404).json({ message: 'Dispositivo no encontrado' });

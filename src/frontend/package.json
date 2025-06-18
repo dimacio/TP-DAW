@@ -1,0 +1,19 @@
+{
+  "name": "smart-home-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Smart Home project",
+  "main": "main.ts",
+  "scripts": {
+    "build": "npx esbuild main.ts --bundle --outfile=dist/main.js --minify"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/materialize-css": "^1.0.14",
+    "esbuild": "^0.20.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "materialize-css": "^1.0.0"
+  }
+}

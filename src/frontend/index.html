@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <!-- Materialize Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-wrapper teal darken-2">
+            <a href="#" class="brand-logo center">Smart Home Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Preloader -->
+        <div id="loader" class="center-align">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div>
+            </div>
+        </div>
+        <!-- Contenedor de Dispositivos -->
+        <div id="devices-container" class="row"></div>
+    </main>
+
+    <!-- Modal para Crear/Editar Dispositivo -->
+    <div id="device-modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 id="modal-title"></h4>
+            <div class="row">
+                <div class="input-field col s12"><input id="device-name" type="text" class="validate"><label for="device-name">Nombre del Dispositivo (ID)</label></div>
+                <div class="input-field col s12"><input id="device-location" type="text" class="validate"><label for="device-location">Ubicación</label></div>
+                <div class="input-field col s12"><select id="device-type"></select><label>Tipo de Dispositivo</label></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            <button id="save-device-btn" class="waves-effect waves-light btn teal">Guardar</button>
+        </div>
+    </div>
+
+    <!-- Modal para Confirmar Borrado -->
+    <div id="confirm-delete-modal" class="modal">
+        <div class="modal-content">
+            <h4>Confirmar Eliminación</h4>
+            <p>¿Estás seguro de que quieres eliminar este dispositivo? Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            <button id="confirm-delete-btn" class="waves-effect waves-red btn red">Eliminar</button>
+        </div>
+    </div>
+
+    <!-- Templates -->
+    <template id="device-card-template">
+        <div class="col s12 m6 l4 xl3 device-card-wrapper"><div class="card"><div class="card-content"><span class="card-title"><i class="material-icons device-icon"></i> <span class="device-name"></span></span><p class="device-location"></p><div class="switch"><label>Off<input type="checkbox" class="device-state"><span class="lever"></span>On</label></div><p class="range-field"><label>Nivel: <span class="device-level-value">0</span>%</label><input type="range" class="device-level" min="0" max="100" /></p></div><div class="card-action"><a href="#" class="edit-btn">Editar</a><a href="#" class="delete-btn red-text">Eliminar</a></div></div></div>
+    </template>
+    <template id="create-card-template">
+         <div class="col s12 m6 l4 xl3"><div class="card-panel hoverable create-card-panel"><div class="center-align"><i class="material-icons large grey-text text-lighten-1">add_circle_outline</i><h5 class="grey-text text-lighten-1">Crear Dispositivo</h5></div></div></div>
+    </template>
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="module" src="dist/main.js"></script> <!-- RUTA ACTUALIZADA -->
+</body>
+</html>
