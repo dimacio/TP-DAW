@@ -1,0 +1,45 @@
+
+services:
+  # Servicio de la Base de Datos con Healthcheck
+  db:
+    image: mysql:5.7
+    hostname: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: userpass
+      MYSQL_DATABASE: smart_home
+    volumes:
+      - ./db/dumps:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+    # evita condiciones de carrera entre la API y la base de datos
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "root", "-puserpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # -------------------------
+
+  # Servicio de la API que espera al Healthcheck
+  api:
+    build: .
+    ports:
+      - "8000:3000"
+    volumes:
+      - ./src/backend:/usr/src/app
+      - /usr/src/app/node_modules
+    
+    depends_on:
+      db:
+        condition: service_healthy # <-- Espera a que el healthcheck sea exitoso
+    # ----------------------------
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:

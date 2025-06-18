@@ -1,0 +1,15 @@
+{
+  "name": "smart-home-api",
+  "version": "1.0.0",
+  "description": "API REST para gestionar dispositivos de un hogar inteligente.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Dimas Torres",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}

@@ -1,0 +1,261 @@
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+#0 building with "default" instance using docker driver
+
+#1 [api internal] load build definition from Dockerfile
+#1 transferring dockerfile: 535B done
+#1 DONE 0.0s
+
+#2 [api internal] load metadata for docker.io/library/node:14
+#2 DONE 1.4s
+
+#3 [api internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [api 1/5] FROM docker.io/library/node:14@sha256:a158d3b9b4e3fa813fa6c8c590b8f0a860e015ad4e59bbce5744d2f6fd8461aa
+#4 DONE 0.0s
+
+#5 [api internal] load build context
+#5 transferring context: 494B done
+#5 DONE 0.0s
+
+#6 [api 2/5] WORKDIR /usr/src/app
+#6 CACHED
+
+#7 [api 3/5] COPY src/backend/package*.json ./
+#7 CACHED
+
+#8 [api 4/5] RUN npm install
+#8 CACHED
+
+#9 [api 5/5] COPY src/backend/ .
+#9 CACHED
+
+#10 [api] exporting to image
+#10 exporting layers done
+#10 writing image sha256:71b469d725573930874ef8dcafdf9c434f391b1bb511101fb8db378f8a06546a done
+#10 naming to docker.io/library/tp-daw-api done
+#10 DONE 0.0s
+
+#11 [api] resolving provenance for metadata file
+#11 DONE 0.0s
+ api  Built
+ Network tp-daw_app-network  Creating
+ Network tp-daw_app-network  Created
+ Volume "tp-daw_db_data"  Creating
+ Volume "tp-daw_db_data"  Created
+ Container tp-daw-db-1  Creating
+ Container tp-daw-db-1  Created
+ Container tp-daw-api-1  Creating
+ Container tp-daw-api-1  Created
+Attaching to api-1, db-1
+db-1   | 2025-06-17 22:16:13+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+db-1   | 2025-06-17 22:16:13+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+db-1   | 2025-06-17 22:16:13+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 5.7.44-1.el7 started.
+db-1   | 2025-06-17 22:16:13+00:00 [Note] [Entrypoint]: Initializing database files
+db-1   | 2025-06-17T22:16:13.575487Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+db-1   | 2025-06-17T22:16:13.909078Z 0 [Warning] InnoDB: New log files created, LSN=45790
+db-1   | 2025-06-17T22:16:13.961142Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
+db-1   | 2025-06-17T22:16:14.021688Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: ae6a1965-4bc8-11f0-8938-327c46503c79.
+db-1   | 2025-06-17T22:16:14.023297Z 0 [Warning] Gtid table is not ready to be used. Table 'mysql.gtid_executed' cannot be opened.
+db-1   | 2025-06-17T22:16:14.288725Z 0 [Warning] A deprecated TLS version TLSv1 is enabled. Please use TLSv1.2 or higher.
+db-1   | 2025-06-17T22:16:14.288739Z 0 [Warning] A deprecated TLS version TLSv1.1 is enabled. Please use TLSv1.2 or higher.
+db-1   | 2025-06-17T22:16:14.289349Z 0 [Warning] CA certificate ca.pem is self signed.
+db-1   | 2025-06-17T22:16:14.324288Z 1 [Warning] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+db-1   | 2025-06-17 22:16:16+00:00 [Note] [Entrypoint]: Database files initialized
+db-1   | 2025-06-17 22:16:16+00:00 [Note] [Entrypoint]: Starting temporary server
+db-1   | 2025-06-17 22:16:16+00:00 [Note] [Entrypoint]: Waiting for server startup
+db-1   | 2025-06-17T22:16:17.043573Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+db-1   | 2025-06-17T22:16:17.044917Z 0 [Note] mysqld (mysqld 5.7.44) starting as process 125 ...
+db-1   | 2025-06-17T22:16:17.047887Z 0 [Note] InnoDB: PUNCH HOLE support available
+db-1   | 2025-06-17T22:16:17.047908Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+db-1   | 2025-06-17T22:16:17.047912Z 0 [Note] InnoDB: Uses event mutexes
+db-1   | 2025-06-17T22:16:17.047915Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
+db-1   | 2025-06-17T22:16:17.047918Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
+db-1   | 2025-06-17T22:16:17.047920Z 0 [Note] InnoDB: Using Linux native AIO
+db-1   | 2025-06-17T22:16:17.048168Z 0 [Note] InnoDB: Number of pools: 1
+db-1   | 2025-06-17T22:16:17.048258Z 0 [Note] InnoDB: Using CPU crc32 instructions
+db-1   | 2025-06-17T22:16:17.049661Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+db-1   | 2025-06-17T22:16:17.057125Z 0 [Note] InnoDB: Completed initialization of buffer pool
+db-1   | 2025-06-17T22:16:17.059241Z 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+db-1   | 2025-06-17T22:16:17.070789Z 0 [Note] InnoDB: Highest supported file format is Barracuda.
+db-1   | 2025-06-17T22:16:17.077768Z 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+db-1   | 2025-06-17T22:16:17.077870Z 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+db-1   | 2025-06-17T22:16:17.159003Z 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+db-1   | 2025-06-17T22:16:17.159743Z 0 [Note] InnoDB: 96 redo rollback segment(s) found. 96 redo rollback segment(s) are active.
+db-1   | 2025-06-17T22:16:17.159752Z 0 [Note] InnoDB: 32 non-redo rollback segment(s) are active.
+db-1   | 2025-06-17T22:16:17.160129Z 0 [Note] InnoDB: Waiting for purge to start
+db-1   | 2025-06-17T22:16:17.210323Z 0 [Note] InnoDB: 5.7.44 started; log sequence number 2768291
+db-1   | 2025-06-17T22:16:17.210830Z 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+db-1   | 2025-06-17T22:16:17.211032Z 0 [Note] Plugin 'FEDERATED' is disabled.
+db-1   | 2025-06-17T22:16:17.213049Z 0 [Note] InnoDB: Buffer pool(s) load completed at 250617 22:16:17
+db-1   | 2025-06-17T22:16:17.216876Z 0 [Note] Found ca.pem, server-cert.pem and server-key.pem in data directory. Trying to enable SSL support using them.
+db-1   | 2025-06-17T22:16:17.216893Z 0 [Note] Skipping generation of SSL certificates as certificate files are present in data directory.
+db-1   | 2025-06-17T22:16:17.216896Z 0 [Warning] A deprecated TLS version TLSv1 is enabled. Please use TLSv1.2 or higher.
+db-1   | 2025-06-17T22:16:17.216898Z 0 [Warning] A deprecated TLS version TLSv1.1 is enabled. Please use TLSv1.2 or higher.
+db-1   | 2025-06-17T22:16:17.217436Z 0 [Warning] CA certificate ca.pem is self signed.
+db-1   | 2025-06-17T22:16:17.217469Z 0 [Note] Skipping generation of RSA key pair as key files are present in data directory.
+db-1   | 2025-06-17T22:16:17.221962Z 0 [Warning] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+db-1   | 2025-06-17T22:16:17.228618Z 0 [Note] Event Scheduler: Loaded 0 events
+db-1   | 2025-06-17T22:16:17.228854Z 0 [Note] mysqld: ready for connections.
+db-1   | Version: '5.7.44'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server (GPL)
+db-1   | 2025-06-17 22:16:17+00:00 [Note] [Entrypoint]: Temporary server started.
+db-1   | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+db-1   | 2025-06-17T22:16:17.926735Z 3 [Note] InnoDB: Stopping purge
+db-1   | 2025-06-17T22:16:17.930985Z 3 [Note] InnoDB: Resuming purge
+db-1   | 2025-06-17T22:16:17.934400Z 3 [Note] InnoDB: Stopping purge
+db-1   | 2025-06-17T22:16:17.938447Z 3 [Note] InnoDB: Resuming purge
+db-1   | 2025-06-17T22:16:17.940875Z 3 [Note] InnoDB: Stopping purge
+db-1   | 2025-06-17T22:16:17.944263Z 3 [Note] InnoDB: Resuming purge
+db-1   | 2025-06-17T22:16:17.945416Z 3 [Note] InnoDB: Stopping purge
+db-1   | 2025-06-17T22:16:17.948399Z 3 [Note] InnoDB: Resuming purge
+db-1   | Warning: Unable to load '/usr/share/zoneinfo/iso3166.tab' as time zone. Skipping it.
+db-1   | Warning: Unable to load '/usr/share/zoneinfo/leapseconds' as time zone. Skipping it.
+db-1   | Warning: Unable to load '/usr/share/zoneinfo/tzdata.zi' as time zone. Skipping it.
+db-1   | Warning: Unable to load '/usr/share/zoneinfo/zone.tab' as time zone. Skipping it.
+db-1   | Warning: Unable to load '/usr/share/zoneinfo/zone1970.tab' as time zone. Skipping it.
+db-1   | 2025-06-17 22:16:19+00:00 [Note] [Entrypoint]: Creating database smart_home
+db-1   | 
+db-1   | 2025-06-17 22:16:19+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/smart_home.sql
+db-1   | 
+db-1   | 
+db-1   | 2025-06-17 22:16:19+00:00 [Note] [Entrypoint]: Stopping temporary server
+db-1   | 2025-06-17T22:16:19.452713Z 0 [Note] Giving 0 client threads a chance to die gracefully
+db-1   | 2025-06-17T22:16:19.452760Z 0 [Note] Shutting down slave threads
+db-1   | 2025-06-17T22:16:19.452767Z 0 [Note] Forcefully disconnecting 0 remaining clients
+db-1   | 2025-06-17T22:16:19.452775Z 0 [Note] Event Scheduler: Purging the queue. 0 events
+db-1   | 2025-06-17T22:16:19.452843Z 0 [Note] Binlog end
+db-1   | 2025-06-17T22:16:19.454673Z 0 [Note] Shutting down plugin 'ngram'
+db-1   | 2025-06-17T22:16:19.454691Z 0 [Note] Shutting down plugin 'partition'
+db-1   | 2025-06-17T22:16:19.454698Z 0 [Note] Shutting down plugin 'BLACKHOLE'
+db-1   | 2025-06-17T22:16:19.454704Z 0 [Note] Shutting down plugin 'ARCHIVE'
+db-1   | 2025-06-17T22:16:19.454709Z 0 [Note] Shutting down plugin 'PERFORMANCE_SCHEMA'
+db-1   | 2025-06-17T22:16:19.454772Z 0 [Note] Shutting down plugin 'MRG_MYISAM'
+db-1   | 2025-06-17T22:16:19.454827Z 0 [Note] Shutting down plugin 'MyISAM'
+db-1   | 2025-06-17T22:16:19.454868Z 0 [Note] Shutting down plugin 'INNODB_SYS_VIRTUAL'
+db-1   | 2025-06-17T22:16:19.454877Z 0 [Note] Shutting down plugin 'INNODB_SYS_DATAFILES'
+db-1   | 2025-06-17T22:16:19.454882Z 0 [Note] Shutting down plugin 'INNODB_SYS_TABLESPACES'
+db-1   | 2025-06-17T22:16:19.454886Z 0 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN_COLS'
+db-1   | 2025-06-17T22:16:19.454889Z 0 [Note] Shutting down plugin 'INNODB_SYS_FOREIGN'
+db-1   | 2025-06-17T22:16:19.454893Z 0 [Note] Shutting down plugin 'INNODB_SYS_FIELDS'
+db-1   | 2025-06-17T22:16:19.454897Z 0 [Note] Shutting down plugin 'INNODB_SYS_COLUMNS'
+db-1   | 2025-06-17T22:16:19.454900Z 0 [Note] Shutting down plugin 'INNODB_SYS_INDEXES'
+db-1   | 2025-06-17T22:16:19.454904Z 0 [Note] Shutting down plugin 'INNODB_SYS_TABLESTATS'
+db-1   | 2025-06-17T22:16:19.454908Z 0 [Note] Shutting down plugin 'INNODB_SYS_TABLES'
+db-1   | 2025-06-17T22:16:19.454911Z 0 [Note] Shutting down plugin 'INNODB_FT_INDEX_TABLE'
+db-1   | 2025-06-17T22:16:19.454915Z 0 [Note] Shutting down plugin 'INNODB_FT_INDEX_CACHE'
+db-1   | 2025-06-17T22:16:19.454919Z 0 [Note] Shutting down plugin 'INNODB_FT_CONFIG'
+db-1   | 2025-06-17T22:16:19.454922Z 0 [Note] Shutting down plugin 'INNODB_FT_BEING_DELETED'
+db-1   | 2025-06-17T22:16:19.454926Z 0 [Note] Shutting down plugin 'INNODB_FT_DELETED'
+db-1   | 2025-06-17T22:16:19.454930Z 0 [Note] Shutting down plugin 'INNODB_FT_DEFAULT_STOPWORD'
+db-1   | 2025-06-17T22:16:19.454933Z 0 [Note] Shutting down plugin 'INNODB_METRICS'
+db-1   | 2025-06-17T22:16:19.454937Z 0 [Note] Shutting down plugin 'INNODB_TEMP_TABLE_INFO'
+db-1   | 2025-06-17T22:16:19.454941Z 0 [Note] Shutting down plugin 'INNODB_BUFFER_POOL_STATS'
+db-1   | 2025-06-17T22:16:19.454944Z 0 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE_LRU'
+db-1   | 2025-06-17T22:16:19.454948Z 0 [Note] Shutting down plugin 'INNODB_BUFFER_PAGE'
+db-1   | 2025-06-17T22:16:19.454952Z 0 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX_RESET'
+db-1   | 2025-06-17T22:16:19.454956Z 0 [Note] Shutting down plugin 'INNODB_CMP_PER_INDEX'
+db-1   | 2025-06-17T22:16:19.454959Z 0 [Note] Shutting down plugin 'INNODB_CMPMEM_RESET'
+db-1   | 2025-06-17T22:16:19.454963Z 0 [Note] Shutting down plugin 'INNODB_CMPMEM'
+db-1   | 2025-06-17T22:16:19.454967Z 0 [Note] Shutting down plugin 'INNODB_CMP_RESET'
+db-1   | 2025-06-17T22:16:19.454970Z 0 [Note] Shutting down plugin 'INNODB_CMP'
+db-1   | 2025-06-17T22:16:19.454974Z 0 [Note] Shutting down plugin 'INNODB_LOCK_WAITS'
+db-1   | 2025-06-17T22:16:19.454978Z 0 [Note] Shutting down plugin 'INNODB_LOCKS'
+db-1   | 2025-06-17T22:16:19.454981Z 0 [Note] Shutting down plugin 'INNODB_TRX'
+db-1   | 2025-06-17T22:16:19.454985Z 0 [Note] Shutting down plugin 'InnoDB'
+db-1   | 2025-06-17T22:16:19.455050Z 0 [Note] InnoDB: FTS optimize thread exiting.
+db-1   | 2025-06-17T22:16:19.455209Z 0 [Note] InnoDB: Starting shutdown...
+db-1   | 2025-06-17T22:16:19.555501Z 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+db-1   | 2025-06-17T22:16:19.556033Z 0 [Note] InnoDB: Buffer pool(s) dump completed at 250617 22:16:19
+db-1   | 2025-06-17T22:16:21.065974Z 0 [Note] InnoDB: Shutdown completed; log sequence number 12230108
+db-1   | 2025-06-17T22:16:21.069256Z 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+db-1   | 2025-06-17T22:16:21.069288Z 0 [Note] Shutting down plugin 'MEMORY'
+db-1   | 2025-06-17T22:16:21.069296Z 0 [Note] Shutting down plugin 'CSV'
+db-1   | 2025-06-17T22:16:21.069303Z 0 [Note] Shutting down plugin 'sha256_password'
+db-1   | 2025-06-17T22:16:21.069307Z 0 [Note] Shutting down plugin 'mysql_native_password'
+db-1   | 2025-06-17T22:16:21.069518Z 0 [Note] Shutting down plugin 'binlog'
+db-1   | 2025-06-17T22:16:21.072108Z 0 [Note] mysqld: Shutdown complete
+db-1   | 
+db-1   | 2025-06-17 22:16:21+00:00 [Note] [Entrypoint]: Temporary server stopped
+db-1   | 
+db-1   | 2025-06-17 22:16:21+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+db-1   | 
+db-1   | 2025-06-17T22:16:21.653815Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+db-1   | 2025-06-17T22:16:21.655162Z 0 [Note] mysqld (mysqld 5.7.44) starting as process 1 ...
+db-1   | 2025-06-17T22:16:21.658118Z 0 [Note] InnoDB: PUNCH HOLE support available
+db-1   | 2025-06-17T22:16:21.658141Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+db-1   | 2025-06-17T22:16:21.658144Z 0 [Note] InnoDB: Uses event mutexes
+db-1   | 2025-06-17T22:16:21.658147Z 0 [Note] InnoDB: GCC builtin __atomic_thread_fence() is used for memory barrier
+db-1   | 2025-06-17T22:16:21.658151Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.13
+db-1   | 2025-06-17T22:16:21.658154Z 0 [Note] InnoDB: Using Linux native AIO
+db-1   | 2025-06-17T22:16:21.658396Z 0 [Note] InnoDB: Number of pools: 1
+db-1   | 2025-06-17T22:16:21.658493Z 0 [Note] InnoDB: Using CPU crc32 instructions
+db-1   | 2025-06-17T22:16:21.659990Z 0 [Note] InnoDB: Initializing buffer pool, total size = 128M, instances = 1, chunk size = 128M
+db-1   | 2025-06-17T22:16:21.667360Z 0 [Note] InnoDB: Completed initialization of buffer pool
+db-1   | 2025-06-17T22:16:21.669283Z 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+db-1   | 2025-06-17T22:16:21.680703Z 0 [Note] InnoDB: Highest supported file format is Barracuda.
+db-1   | 2025-06-17T22:16:21.691054Z 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+db-1   | 2025-06-17T22:16:21.691163Z 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+db-1   | 2025-06-17T22:16:21.723856Z 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+db-1   | 2025-06-17T22:16:21.724577Z 0 [Note] InnoDB: 96 redo rollback segment(s) found. 96 redo rollback segment(s) are active.
+db-1   | 2025-06-17T22:16:21.724585Z 0 [Note] InnoDB: 32 non-redo rollback segment(s) are active.
+db-1   | 2025-06-17T22:16:21.725126Z 0 [Note] InnoDB: 5.7.44 started; log sequence number 12230108
+db-1   | 2025-06-17T22:16:21.725305Z 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+db-1   | 2025-06-17T22:16:21.725413Z 0 [Note] Plugin 'FEDERATED' is disabled.
+db-1   | 2025-06-17T22:16:21.729676Z 0 [Note] InnoDB: Buffer pool(s) load completed at 250617 22:16:21
+db-1   | 2025-06-17T22:16:21.730945Z 0 [Note] Found ca.pem, server-cert.pem and server-key.pem in data directory. Trying to enable SSL support using them.
+db-1   | 2025-06-17T22:16:21.730960Z 0 [Note] Skipping generation of SSL certificates as certificate files are present in data directory.
+db-1   | 2025-06-17T22:16:21.730964Z 0 [Warning] A deprecated TLS version TLSv1 is enabled. Please use TLSv1.2 or higher.
+db-1   | 2025-06-17T22:16:21.730966Z 0 [Warning] A deprecated TLS version TLSv1.1 is enabled. Please use TLSv1.2 or higher.
+db-1   | 2025-06-17T22:16:21.731491Z 0 [Warning] CA certificate ca.pem is self signed.
+db-1   | 2025-06-17T22:16:21.731523Z 0 [Note] Skipping generation of RSA key pair as key files are present in data directory.
+db-1   | 2025-06-17T22:16:21.731792Z 0 [Note] Server hostname (bind-address): '*'; port: 3306
+db-1   | 2025-06-17T22:16:21.731819Z 0 [Note] IPv6 is available.
+db-1   | 2025-06-17T22:16:21.731830Z 0 [Note]   - '::' resolves to '::';
+db-1   | 2025-06-17T22:16:21.731844Z 0 [Note] Server socket created on IP: '::'.
+db-1   | 2025-06-17T22:16:21.733191Z 0 [Warning] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+db-1   | 2025-06-17T22:16:21.740030Z 0 [Note] Event Scheduler: Loaded 0 events
+db-1   | 2025-06-17T22:16:21.740245Z 0 [Note] mysqld: ready for connections.
+db-1   | Version: '5.7.44'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server (GPL)
+api-1  | 
+api-1  | > smart-home-api@1.0.0 start /usr/src/app
+api-1  | > node index.js
+api-1  | 
+api-1  | internal/modules/cjs/loader.js:934
+api-1  |   throw err;
+api-1  |   ^
+api-1  | 
+api-1  | Error: Cannot find module '../mysql-connector'
+api-1  | Require stack:
+api-1  | - /usr/src/app/index.js
+api-1  |     at Function.Module._resolveFilename (internal/modules/cjs/loader.js:931:15)
+api-1  |     at Function.Module._load (internal/modules/cjs/loader.js:774:27)
+api-1  |     at Module.require (internal/modules/cjs/loader.js:1003:19)
+api-1  |     at require (internal/modules/cjs/helpers.js:107:18)
+api-1  |     at Object.<anonymous> (/usr/src/app/index.js:1:12)
+api-1  |     at Module._compile (internal/modules/cjs/loader.js:1114:14)
+api-1  |     at Object.Module._extensions..js (internal/modules/cjs/loader.js:1143:10)
+api-1  |     at Module.load (internal/modules/cjs/loader.js:979:32)
+api-1  |     at Function.Module._load (internal/modules/cjs/loader.js:819:12)
+api-1  |     at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:75:12) {
+api-1  |   code: 'MODULE_NOT_FOUND',
+api-1  |   requireStack: [ '/usr/src/app/index.js' ]
+api-1  | }
+api-1  | npm ERR! code ELIFECYCLE
+api-1  | npm ERR! errno 1
+api-1  | npm ERR! smart-home-api@1.0.0 start: `node index.js`
+api-1  | npm ERR! Exit status 1
+api-1  | npm ERR! 
+api-1  | npm ERR! Failed at the smart-home-api@1.0.0 start script.
+api-1  | npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+api-1  | 
+api-1  | npm ERR! A complete log of this run can be found in:
+api-1  | npm ERR!     /root/.npm/_logs/2025-06-17T22_16_24_316Z-debug.log
+[Kapi-1 exited with code 1
+Gracefully stopping... (press Ctrl+C again to force)
+ Container tp-daw-api-1  Stopping
+ Container tp-daw-api-1  Stopped
+ Container tp-daw-db-1  Stopping
+ Container tp-daw-db-1  Stopped
+
