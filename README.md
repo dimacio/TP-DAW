@@ -1,5 +1,7 @@
 Proyecto Fullstack: Smart Home
 
+
+
 Este es un proyecto fullstack para controlar dispositivos de un hogar inteligente. La arquitectura está montada sobre Docker y se divide en dos grandes partes:
 
     Backend (¡Terminado! 🎉): Una API REST hecha con Node.js y Express, que se conecta a una base de datos MySQL para gestionar los dispositivos.
